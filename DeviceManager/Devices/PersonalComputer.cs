@@ -1,8 +1,28 @@
-﻿namespace DeviceManager.Devices;
+﻿using DeviceManager.Exceptions;
 
-public class PersonalComputer : DeviceBuilder
+namespace DeviceManager.Devices;
+
+public class PersonalComputer(string id, string name, bool on, string? operatingSystem)
+    : ADevice(id, name, on)
 {
-    public PersonalComputer(string id, string name, bool on) : base(id, name, on)
+    private string? _operatingSystem = operatingSystem;
+
+    public override void TurnOn()
     {
+        if (On)
+        {
+            Console.WriteLine("Device is already on");
+            return;
+        }
+        if (_operatingSystem == null)
+        {
+            throw new EmptySystemException();
+        }
+        On = true;
+    }
+
+    public void InstallOS(string operatingSystem)
+    {
+        _operatingSystem = operatingSystem;
     }
 }

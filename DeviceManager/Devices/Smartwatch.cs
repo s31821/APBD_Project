@@ -1,14 +1,44 @@
-﻿namespace DeviceManager.Devices;
+﻿using DeviceManager.Exceptions;
 
-public class Smartwatch : DeviceBuilder, IPowerNotifier
+namespace DeviceManager.Devices;
+
+public class Smartwatch : ADevice, IPowerNotifier
 {
-    private int power;
-    Smartwatch(string id, string name, bool on, int power) : base(name, name, on)
+    private int _power;
+    public Smartwatch(string id, string name, bool on, int power) : base(id, name, on)
     {
-        this.power = power;
+        _power = power;
+        switch (_power)
+        {
+            case < 0:
+                _power = 0;
+                break;
+            case > 100:
+                _power = 100;
+                break;
+        }
+        if (_power < 20)
+        {
+            Notify(name);
+        }
     }
-    public void Notify(string name, int power)
+    public void Notify(string name)
     {
-        Console.WriteLine(name + "'s power is at " + power + "%");
+        Console.WriteLine(name + "'s power is at " + _power + "%");
+    }
+
+    public override void TurnOn()
+    {
+        if (On)
+        {
+            Console.WriteLine("Device is already on");
+            return;
+        }
+        if (_power < 11)
+        {
+            throw new EmptyBatteryException();
+        }
+        On = true;
+        _power -= 10;
     }
 }
