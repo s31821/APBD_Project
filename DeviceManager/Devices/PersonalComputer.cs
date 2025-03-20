@@ -5,7 +5,7 @@ namespace DeviceManager.Devices;
 public class PersonalComputer(string id, string name, bool on, string? operatingSystem)
     : ADevice(id, name, on)
 {
-    private string? _operatingSystem = operatingSystem;
+    private string? _operatingSystem = (operatingSystem == "" ? null : operatingSystem);
 
     public override void TurnOn()
     {
@@ -16,7 +16,7 @@ public class PersonalComputer(string id, string name, bool on, string? operating
         }
         if (_operatingSystem == null)
         {
-            throw new EmptySystemException();
+            throw new EmptySystemException("Can't turn on a computer without an operating system");
         }
         On = true;
     }
@@ -24,5 +24,10 @@ public class PersonalComputer(string id, string name, bool on, string? operating
     public void InstallOS(string operatingSystem)
     {
         _operatingSystem = operatingSystem;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString()+ (operatingSystem == null ? "" : ','+operatingSystem);
     }
 }

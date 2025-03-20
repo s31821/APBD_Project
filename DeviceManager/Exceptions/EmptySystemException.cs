@@ -1,6 +1,3 @@
 ﻿namespace DeviceManager.Exceptions;
 
-public class EmptySystemException : Exception
-{
-    
-}
+public class EmptySystemException(string? message) : Exception(message);

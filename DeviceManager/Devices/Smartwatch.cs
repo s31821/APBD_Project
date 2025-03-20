@@ -36,9 +36,14 @@ public class Smartwatch : ADevice, IPowerNotifier
         }
         if (_power < 11)
         {
-            throw new EmptyBatteryException();
+            throw new EmptyBatteryException("Not enough power to turn on");
         }
         On = true;
         _power -= 10;
+    }
+
+    public override string ToString()
+    {
+        return (base.ToString()+','+_power+'%');
     }
 }

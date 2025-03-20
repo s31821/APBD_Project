@@ -38,4 +38,10 @@ public abstract class ADevice(string id, string name, bool on)
         }
         On = false;
     }
+
+    public virtual String ToString()
+    {
+        return GetDeviceId()+","+GetDeviceName()+","+On;
+    }
+    
 }

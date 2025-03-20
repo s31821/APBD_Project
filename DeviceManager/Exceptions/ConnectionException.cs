@@ -1,6 +1,3 @@
 ﻿namespace DeviceManager.Exceptions;
 
-public class ConnectionException : Exception
-{
-    
-}
+public class ConnectionException(string? message) : Exception(message);

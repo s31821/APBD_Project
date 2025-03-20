@@ -1,6 +1,3 @@
 ﻿namespace DeviceManager.Exceptions;
 
-public class EmptyBatteryException : Exception
-{
-    
-}
+public class EmptyBatteryException(string? message) : Exception(message);
