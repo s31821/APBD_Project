@@ -3,13 +3,16 @@ using DeviceManager.Exceptions;
 
 namespace DeviceManager.Devices;
 
-public class EmbeddedDevice : ADevice
+public class EmbeddedDevice : IDevice
 {
     private readonly string _ipAddress;
     private readonly string _network;
 
-    public EmbeddedDevice(string id, string name, bool on, string ipAddress, string network) : base(id, name, on)
+    public EmbeddedDevice(string id, string name, bool on, string ipAddress, string network)
     {
+        Id = id;
+        Name = name;
+        IsOn = on;
         var ipRegex = new Regex(@"^([0-9]{1,3}\.){3}[0-9]{1,3}$");
         if (ipRegex.IsMatch(ipAddress))
         {
@@ -27,20 +30,36 @@ public class EmbeddedDevice : ADevice
         if (!_network.Contains("MD Ltd.")) throw new ConnectionException("No network found");
     }
 
-    public override void TurnOn()
+    public string Id { get; }
+    public string Name { get; }
+    public bool IsOn { get; set; }
+
+    public bool TurnOn()
     {
-        if (On)
+        if (IsOn)
         {
             Console.WriteLine("Device is already on");
-            return;
+            return false;
         }
 
         Connect();
-        On = true;
+        IsOn = true;
+        return true;
+    }
+    
+    public bool TurnOff()
+    {
+        if (!IsOn)
+        {
+            Console.WriteLine("Device is already off");
+            return false;
+        }
+        IsOn = false;
+        return true;
     }
 
-    public override string ToString()
+    public string Serialize()
     {
-        return base.ToString() + "," + _ipAddress + "," + _network;
+        return Id+","+Name+","+IsOn+','+ _ipAddress + "," + _network;
     }
 }

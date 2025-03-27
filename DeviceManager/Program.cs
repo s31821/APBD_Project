@@ -8,7 +8,7 @@ class Program
         DevMan deviceManager=null;
         try
         {
-            deviceManager = new DevMan("input.txt");
+            deviceManager = new DevMan(new FileDeviceRepository("input.txt",new DeviceFactory()));
         }
         catch (FileNotFoundException)
         {
@@ -50,7 +50,7 @@ class Program
             }
             else if (input == "save")
             {
-                deviceManager.SaveDevicesToFile();
+                deviceManager.SaveDevices();
             }
             else
             {

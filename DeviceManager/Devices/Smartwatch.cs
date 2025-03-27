@@ -2,11 +2,14 @@
 
 namespace DeviceManager.Devices;
 
-public class Smartwatch : ADevice, IPowerNotifier
+public class Smartwatch : IDevice, IPowerNotifier
 {
     private int _power;
-    public Smartwatch(string id, string name, bool on, int power) : base(id, name, on)
+    public Smartwatch(string id, string name, bool on, int power)
     {
+        Id = id;
+        Name = name;
+        IsOn = on;
         _power = power;
         switch (_power)
         {
@@ -27,23 +30,40 @@ public class Smartwatch : ADevice, IPowerNotifier
         Console.WriteLine(name + "'s power is at " + _power + "%");
     }
 
-    public override void TurnOn()
+    public string Id { get; }
+    public string Name { get; }
+    public bool IsOn { get; set; }
+
+    public bool TurnOn()
     {
-        if (On)
+        if (IsOn)
         {
             Console.WriteLine("Device is already on");
-            return;
+            return false;
         }
         if (_power < 11)
         {
             throw new EmptyBatteryException("Not enough power to turn on");
         }
-        On = true;
+        IsOn = true;
         _power -= 10;
+        return true;
     }
 
-    public override string ToString()
+    public bool TurnOff()
     {
-        return (base.ToString()+','+_power+'%');
+        if (!IsOn)
+        {
+            Console.WriteLine("Device is already off");
+            return false;
+        }
+        IsOn = false;
+        return true;
     }
+
+    public string Serialize()
+    {
+        return Id+","+Name+","+IsOn+','+_power+'%';
+    }
+
 }

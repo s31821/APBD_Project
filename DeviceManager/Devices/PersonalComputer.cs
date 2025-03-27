@@ -2,32 +2,55 @@
 
 namespace DeviceManager.Devices;
 
-public class PersonalComputer(string id, string name, bool on, string? operatingSystem)
-    : ADevice(id, name, on)
+public class PersonalComputer : IDevice
 {
-    private string? _operatingSystem = (operatingSystem == "" ? null : operatingSystem);
+    private string? _operatingSystem;
 
-    public override void TurnOn()
+    public PersonalComputer(string id, string name, bool on, string? operatingSystem)
     {
-        if (On)
+        Id = id;
+        Name = name;
+        IsOn = on;
+        _operatingSystem = (operatingSystem == "" ? null : operatingSystem);
+    }
+
+    public string Id { get; }
+    public string Name { get; }
+    public bool IsOn { get; set; }
+
+    public bool TurnOn()
+    {
+        if (IsOn)
         {
             Console.WriteLine("Device is already on");
-            return;
+            return false;
         }
         if (_operatingSystem == null)
         {
             throw new EmptySystemException("Can't turn on a computer without an operating system");
         }
-        On = true;
+        IsOn = true;
+        return true;
+    }
+
+    public bool TurnOff()
+    {
+        if (!IsOn)
+        {
+            Console.WriteLine("Device is already off");
+            return false;
+        }
+        IsOn = false;
+        return true;
+    }
+
+    public string Serialize()
+    {
+        return Id+","+Name+","+IsOn+','+(_operatingSystem == null ? "" : ','+_operatingSystem);
     }
 
     public void InstallOS(string operatingSystem)
     {
         _operatingSystem = operatingSystem;
-    }
-
-    public override string ToString()
-    {
-        return base.ToString()+ (operatingSystem == null ? "" : ','+operatingSystem);
     }
 }

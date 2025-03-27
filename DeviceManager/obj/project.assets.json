@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Fela\\.nuget\\packages\\": {}
+    "C:\\Users\\LEMON\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fela\\RiderProjects\\APBD_Project\\DeviceManager\\DeviceManager.csproj",
+      "projectUniqueName": "C:\\Users\\LEMON\\RiderProjects\\APBD_Project\\DeviceManager\\DeviceManager.csproj",
       "projectName": "DeviceManager",
-      "projectPath": "C:\\Users\\Fela\\RiderProjects\\APBD_Project\\DeviceManager\\DeviceManager.csproj",
-      "packagesPath": "C:\\Users\\Fela\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fela\\RiderProjects\\APBD_Project\\DeviceManager\\obj\\",
+      "projectPath": "C:\\Users\\LEMON\\RiderProjects\\APBD_Project\\DeviceManager\\DeviceManager.csproj",
+      "packagesPath": "C:\\Users\\LEMON\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LEMON\\RiderProjects\\APBD_Project\\DeviceManager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Fela\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\LEMON\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Fela\\.dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\LEMON\\.dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

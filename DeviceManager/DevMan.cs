@@ -1,72 +1,26 @@
 ﻿using DeviceManager.Devices;
 using DeviceManager.Exceptions;
+using DeviceManager.Interfaces;
 
 namespace DeviceManager;
 
 public class DevMan
 {
-    List<ADevice> _devices = [];
-    private String filepath;
-    public DevMan(string filepath)
+    private readonly List<IDevice> _devices;
+    private readonly IDeviceRepository _repository;
+
+    public DevMan(IDeviceRepository repository)
     {
-        this.filepath = filepath;
-        if (!File.Exists(filepath))
-        {
-            throw new FileNotFoundException();
-        }
-        FileStream fileStream = File.Open(filepath, FileMode.Open, FileAccess.ReadWrite);
-        StreamReader streamReader = new StreamReader(fileStream);
-        while (streamReader.Peek() != -1)
-        {
-            try
-            {
-                AddDevice(streamReader.ReadLine());
-            }
-            catch (FullDeviceManagerException)
-            {
-                Console.WriteLine("Couldn't read all devices from file, capacity reached");
-                break;
-            }
-        }
-        streamReader.Close();
-        fileStream.Close();
-        fileStream.Dispose();
+        _repository = repository;
+        _devices = _repository.LoadDevices();
     }
 
-    public void AddDevice(String input)
+    public void AddDevice(IDevice device)
     {
-        if (_devices.Count == 15)
-        {
-            throw new FullDeviceManagerException("No space in device manager. Remove a device to add more.");
-        }
-        string[] line = input.Split(",");
-        try
-        {
-            if (line[0].StartsWith("SW"))
-            {
-                _devices.Add(new Smartwatch(line[0], line[1], bool.Parse(line[2]), int.Parse(line[3].Trim('%'))));
-            }
-            else if (line[0].StartsWith('P'))
-            {
-                if (line.Length == 3)
-                {
-                    _devices.Add(new PersonalComputer(line[0], line[1], bool.Parse(line[2]), null));
-                }
-                else
-                {
-                    _devices.Add(new PersonalComputer(line[0], line[1], bool.Parse(line[2]), line[3]));
-                }
+        if (_devices.Count >= 15)
+            throw new FullDeviceManagerException("No space in device manager.");
 
-            }
-            else if (line[0].StartsWith("ED"))
-            {
-                _devices.Add(new EmbeddedDevice(line[0], line[1], bool.Parse(line[2]), line[3], line[4]));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("Invalid device in file, skipping...");
-        }
+        _devices.Add(device);
     }
     public void AddDevice()
     {
@@ -114,22 +68,28 @@ public class DevMan
         }
     }
 
+    public void RemoveDevice(int index)
+    {
+        if (index < 0 || index >= _devices.Count)
+            throw new ArgumentOutOfRangeException(nameof(index));
+
+        _devices.RemoveAt(index);
+    }
+    
     public void RemoveDevice()
     {
         ListDevices();
         Console.WriteLine("Select the device you want to remove");
         int select = Int32.Parse(Console.ReadLine());
-        Console.WriteLine("Removed " + _devices[select].GetDeviceName());
+        Console.WriteLine("Removed " + _devices[select].Name);
         _devices.RemoveAt(select);
     }
 
     public void ListDevices()
     {
-        for (int i = 0; i < _devices.Count; i++)
-        {
-            Console.WriteLine(i + ". " + _devices[i].ToString());
-        }
+        for (var i = 0; i < _devices.Count; i++) Console.WriteLine($"{i}. {_devices[i].Serialize()}");
     }
+
     public void TurnOnDevice()
     {
         ListDevices();
@@ -137,29 +97,32 @@ public class DevMan
         int select = Int32.Parse(Console.ReadLine());
         try
         {
-            _devices[select].TurnOn();
-            Console.WriteLine("Turned on " + _devices[select].GetDeviceName());
+            if (_devices[select].TurnOn())
+            {
+                Console.WriteLine("Turned on " + _devices[select].Name);
+            }
+            
         }
         catch (EmptySystemException)
         {
             Console.WriteLine("Can't turn on devices without an operating system");
         }
     }
+
     public void TurnOffDevice()
     {
         ListDevices();
         Console.WriteLine("Select the device you want to turn off");
         int select = Int32.Parse(Console.ReadLine());
-        _devices[select].TurnOff();
-    }
-    public void SaveDevicesToFile()
-    {
-        String[] lines = new string[_devices.Count];
-        for (int i = 0; i < _devices.Count; i++)
+        if (_devices[select].TurnOff())
         {
-            lines[i] = _devices[i].ToString();
+            Console.WriteLine("Turned off " + _devices[select].Name);
         }
-        File.WriteAllLines(filepath, lines);
-        Console.WriteLine("Saved devices to " + filepath);
+        
+    }
+
+    public void SaveDevices()
+    {
+        _repository.SaveDevices(_devices);
     }
 }
