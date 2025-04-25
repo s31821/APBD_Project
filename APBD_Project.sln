@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManager", "DeviceManager\DeviceManager.csproj", "{42A599DB-F812-412B-B2C6-B8BCEE13E149}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManager", "src\DeviceManager\DeviceManager.csproj", "{42A599DB-F812-412B-B2C6-B8BCEE13E149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APBD_Web", "APBD_Web\APBD_Web.csproj", "{4500D37B-E6F3-40A5-8EF8-ED67621301DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APBD_Web", "src\APBD_Web\APBD_Web.csproj", "{4500D37B-E6F3-40A5-8EF8-ED67621301DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

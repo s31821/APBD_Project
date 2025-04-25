@@ -482,24 +482,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LEMON\\.nuget\\packages\\": {}
+    "C:\\Users\\s31821\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LEMON\\RiderProjects\\APBD_Project\\APBD_Web\\APBD_Web.csproj",
+      "projectUniqueName": "C:\\Users\\s31821\\RiderProjects\\APBD_Project\\src\\APBD_Web\\APBD_Web.csproj",
       "projectName": "APBD_Web",
-      "projectPath": "C:\\Users\\LEMON\\RiderProjects\\APBD_Project\\APBD_Web\\APBD_Web.csproj",
-      "packagesPath": "C:\\Users\\LEMON\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LEMON\\RiderProjects\\APBD_Project\\APBD_Web\\obj\\",
+      "projectPath": "C:\\Users\\s31821\\RiderProjects\\APBD_Project\\src\\APBD_Web\\APBD_Web.csproj",
+      "packagesPath": "C:\\Users\\s31821\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\s31821\\RiderProjects\\APBD_Project\\src\\APBD_Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LEMON\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\s31821\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -551,7 +553,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\LEMON\\.dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
