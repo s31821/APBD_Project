@@ -3,7 +3,7 @@ using DeviceManager.Devices;
 using DeviceManager.Exceptions;
 using DeviceManager.Interfaces;
 
-namespace DeviceManager;
+namespace APBD_Web;
 
 public class DevMan
 {
@@ -81,7 +81,7 @@ public class DevMan
     {
         ListDevices();
         Console.WriteLine("Select the device you want to remove");
-        int select = Int32.Parse(Console.ReadLine());
+        int select = Int32.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         Console.WriteLine("Removed " + _devices[select].Name);
         _devices.RemoveAt(select);
     }
@@ -116,7 +116,7 @@ public class DevMan
     {
         ListDevices();
         Console.WriteLine("Select the device you want to turn on");
-        int select = int.Parse(Console.ReadLine());
+        int select = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         try
         {
             if (_devices[select].TurnOn())
@@ -135,7 +135,7 @@ public class DevMan
     {
         ListDevices();
         Console.WriteLine("Select the device you want to turn off");
-        int select = Int32.Parse(Console.ReadLine());
+        int select = Int32.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
         if (_devices[select].TurnOff())
         {
             Console.WriteLine("Turned off " + _devices[select].Name);

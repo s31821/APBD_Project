@@ -1,6 +1,6 @@
+using APBD_Web;
 using APBD_Web.Interfaces;
 using DeviceManager;
-using DeviceManager.Devices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-DevMan deviceManager = null;
+DevMan? deviceManager = null;
 try
 {
     deviceManager = new DevMan(new FileDeviceRepository("input.txt", new DeviceFactory()));

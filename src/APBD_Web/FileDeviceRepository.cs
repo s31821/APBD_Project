@@ -1,7 +1,7 @@
 ﻿using APBD_Web.Interfaces;
 using DeviceManager.Interfaces;
 
-namespace DeviceManager;
+namespace APBD_Web;
 
 public class FileDeviceRepository : IDeviceRepository
 {
